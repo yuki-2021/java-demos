@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuki.dao.GirlDao">
+
+    <!--null cast - 处理 -->
+    <select id="queryNullCast" parameterType="Girl" resultType="Girl">
+        select * from beauty
+        <!--
+            1. id是null,
+            2. mybatis使用TypeHandler把null转换成jdbcType.OTHER
+            3. orcale驱动(orcle的jdbc实现),没有实现jdbcType.OTHER，mysql驱动实现了。
+            4. 在使用oracale时候会报错。
+        -->
+        where
+        id = #{id, jdbcType=NULL}
+        and name = #{name}
+    </select>
+
+
+    <!-- ${} 和 #{} 区别 - #{} 会进行预编译，给你加上''。 ${}不会，直接拼接
+
+           1. 在模糊查询时候,${}可以使用，#{}要配合`mysql函数`或者`bind标签`。
+           2. 在多表union查询时候，使用${}来拼接表名。
+    -->
+    <!---->
+    <select id="queryLikeName" resultType="Girl" parameterType="string">
+
+        select * from beauty
+        where
+       <!--
+            method1 - ${}方式
+            name like '%${value}%'
+       -->
+        <!--
+             method - mysql函数 和 #{}
+             name like concat('%',#{value},'%')
+        -->
+        name like #{nameLike}
+        <bind name="nameLike" value="'%' + name + '%'"/>
+  </select>
+</mapper>
