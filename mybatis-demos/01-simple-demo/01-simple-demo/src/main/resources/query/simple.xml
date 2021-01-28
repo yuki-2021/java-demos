@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuki.dao.GirlDao">
+
+    <!-- oneParam - 一个参数，名称随意。使用同一叫value比较好 -->
+    <select id="queryById" resultType="Girl" parameterType="integer">
+        select * from beauty where id = #{vaalue}
+    </select>
+
+    <!--two Param - arg0、arg1/param1、param2,建议使用param-->
+    <select id="queryByNameAndPhone" resultType="Girl">
+        select * from beauty where name=#{arg0} and phone=#{param2}
+    </select>
+
+    <!--pojo Param - 直接写属性名称-->
+    <select id="queryByPojo" parameterType="Girl" resultType="Girl">
+        select * from beauty where
+        name = #{name}
+        and id = #{id}
+        and phone = #{phone}
+    </select>
+
+    <!--map Param - 直接写key-->
+    <select id="queryByMap" resultType="Girl" parameterType="map">
+        select * from beauty where
+        name = #{name}
+        and id = #{id}
+    </select>
+
+    <!--list Param - 要使用list[idx]/collection[idx] - -->
+    <select id="queryByList" resultType="Girl" parameterType="list">
+        select * from beauty where
+        name = #{list[0]}
+        and phone = #{collection[1]}
+    </select>
+
+    <!--set Param - 对于set只能遍历取出 - -->
+    <select id="queryBySet" resultType="Girl" parameterType="collection">
+        select * from beauty where
+         name in
+        <foreach collection="collection" item="name" separator="," open="(" close=")">
+            #{name}
+        </foreach>
+    </select>
+
+    <!--arr Param - 使用array[idx] - -->
+    <select id="queryByArr" resultType="Girl">
+        select * from beauty where
+        name = #{array[0]}
+       and phone = #{array[1]}
+    </select>
+</mapper>
