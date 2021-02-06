@@ -43,4 +43,10 @@
         <error-code>500</error-code>
         <location>/WEB-INF/error/500.jsp</location>
     </error-page>
+
+    <!-- context-param测试 - servletContext.getInitParamter()-->
+    <context-param>
+        <param-name>cp</param-name>
+        <param-value>cp</param-value>
+    </context-param>
 </web-app>

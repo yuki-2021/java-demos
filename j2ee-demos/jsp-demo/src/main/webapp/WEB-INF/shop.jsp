@@ -15,9 +15,11 @@
 
     <!-- 测试 config内置对象 -->
     <!-- jsp -->
+    <%-- servletName --%>
     <%= config.getServletName()%><br />
-    <!-- servletContext -->
+    <!-- servletContext - servletContext -->
     <%= config.getServletContext()%><br />
+    <%= application%><br />
     <!-- init Params-->
     <%= config.getInitParameterNames()%><br />
 </body>
