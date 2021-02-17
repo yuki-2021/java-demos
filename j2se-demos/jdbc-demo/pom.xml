@@ -11,6 +11,20 @@
   <name>jdbc-demo</name>
 
 
+  <!-- repository -->
+  <repositories>
+    <repository>
+      <id>aliyun-pom</id>
+      <url>https://maven.aliyun.com/repository/spring</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <properties>
     <!-- jdk version -->
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -62,10 +76,39 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
         </plugin>
+
         <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>copy-dependencies</goal>
+              </goals>
+              <phase>package</phase>
+            </execution>
+          </executions>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.1.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>lib/</classpathPrefix>
+                <mainClass>com.yuki.jdbc.DbcpTest</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
@@ -78,6 +121,25 @@
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
+        </plugin>
+
+        <!-- maven assembly.xml -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>3.1.0</version>
+          <configuration>
+            <!-- 💚 往jar中放什么东西  -->
+            <descriptors>
+              <descriptor>src/main/resources/assembly.xml</descriptor>
+            </descriptors>
+            <!-- 💚 manifest文件 -->
+            <archive>
+              <manifest>
+                <mainClass>com.yuki.jdbc.DbcpTest</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
         </plugin>
       </plugins>
   </build>

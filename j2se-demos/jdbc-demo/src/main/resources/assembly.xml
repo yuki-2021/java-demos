@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <!-- 项目名称 + id -->
+    <id>Assembly</id>
+    <!-- 打包格式 - 支持zip、tar、tar.gz (or tgz)、tar.bz2 (or tbz2)、jar、dir、war -->
+    <!-- 可以同时指定多个打包格式 -->
+    <formats>
+        <format>jar</format>
+    </formats>
+
+
+    <!-- 依赖处理 -->
+    <dependencySets>
+        <dependencySet>
+            <!-- 是否包含本工程的class文件 -->
+            <useProjectArtifact>true</useProjectArtifact>
+            <!-- 依赖存放位置 -->
+            <outputDirectory>/</outputDirectory>
+            <unpack>true</unpack>
+        </dependencySet>
+    </dependencySets>
+    <!-- false - 是否（把jar包名称作为目录）打包到jar中 -->
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+
+    <!-- 用于把文件放到jar中 -->
+    <fileSets>
+        <!-- ${project.basedir}/conf-->
+        <fileSet>
+            <directory>${project.basedir}/src/main/conf/</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>*.xml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
