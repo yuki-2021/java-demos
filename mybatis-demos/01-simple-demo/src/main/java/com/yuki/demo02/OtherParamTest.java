@@ -13,35 +13,35 @@ import java.util.List;
 import java.util.Map;
 
 /*
-* @desc - null×ª»¯¡¢${}ºÍ#{}µÄÇø±ğ
+* @desc - nullè½¬åŒ–ã€${}å’Œ#{}çš„åŒºåˆ«
 */
 @RunWith(JUnit4.class)
 @FixMethodOrder(value = MethodSorters.DEFAULT)
 public class OtherParamTest extends BaseTest {
 
     /*
-    *  null -   1. mybaitsÓÃTypeHandler °Ñ null×ª»»³ÉjdbcType.OTHER
-    *           2. orcaleÇı¶¯(orcaleµÄjdbcÊµÏÖ)Ã»ÊµÏÖjdbc.OTHER,mysqlÇı¶¯ÊµÏÖÁË¡£
-    *           3. orcaleÇı¶¯Ö´ĞĞ»á±¨´í¡£
+    *  null -   1. mybaitsç”¨TypeHandler æŠŠ nullè½¬æ¢æˆjdbcType.OTHER
+    *           2. orcaleé©±åŠ¨(orcaleçš„jdbcå®ç°)æ²¡å®ç°jdbc.OTHER,mysqlé©±åŠ¨å®ç°äº†ã€‚
+    *           3. orcaleé©±åŠ¨æ‰§è¡Œä¼šæŠ¥é”™ã€‚
     * */
     @Test
     public void test1() {
         GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
         Girl param = new Girl();
         // param.setId(1);
-        param.setName("ÁøÑÒ");
+        param.setName("æŸ³å²©");
         List<Girl> list = girlDao.queryNullCast(param);
         System.out.println(list);
     }
 
 
     /*
-     *  resultType Pojo - ${} ºÍ #{} µÄÇø±ğ
+     *  resultType Pojo - ${} å’Œ #{} çš„åŒºåˆ«
      * */
     @Test
     public void test2() {
         GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
-        List<Girl> list = girlDao.queryLikeName("ÖÜ");
+        List<Girl> list = girlDao.queryLikeName("å‘¨");
         System.out.println(list);
     }
 }

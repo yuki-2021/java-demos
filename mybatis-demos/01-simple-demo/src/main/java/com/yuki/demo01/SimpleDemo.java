@@ -30,13 +30,13 @@ public class SimpleDemo {
         // 2. session = connection
         SqlSession sqlSession = sessionFactory.openSession();
 
-        // 3. »ñÈ¡daoµÄ¶¯Ì¬´úÀí
+        // 3. è·å–daoçš„åŠ¨æ€ä»£ç†
 //        GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
 //        List<Girl> list = girlDao.queryGirlList();
 
         List<Girl> list = sqlSession.selectList("com.yuki.dao.GirlDao.queryGirlList", Girl.class);
 
-        // 4. Êä³ö½á¹û
+        // 4. è¾“å‡ºç»“æœ
         System.out.println("total is :" + list.size());
         for (Girl girl : list) {
             System.out.println(girl);

@@ -12,14 +12,14 @@ import org.junit.runners.MethodSorters;
 import java.util.Map;
 
 /*
-* @desc - resultType Ö¸¶¨·µ»ØÖµÀàĞÍ
+* @desc - resultType æŒ‡å®šè¿”å›å€¼ç±»å‹
 */
 @RunWith(JUnit4.class)
 @FixMethodOrder(value = MethodSorters.DEFAULT)
 public class ResTest extends BaseTest {
 
     /*
-    *  resultType Map - resultSetÓ³Éä³ÉMapÀàĞÍ
+    *  resultType Map - resultSetæ˜ å°„æˆMapç±»å‹
     * */
     @Test
     public void test1() {
@@ -29,7 +29,7 @@ public class ResTest extends BaseTest {
     }
 
     /*
-     *  resultType Pojo - resultSetÓ³Éä³ÉPojoÀàĞÍ
+     *  resultType Pojo - resultSetæ˜ å°„æˆPojoç±»å‹
      * */
     @Test
     public void test2() {

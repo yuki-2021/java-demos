@@ -13,10 +13,10 @@ import java.util.*;
 
 /*
 *
-*  @desc ²ÎÊı²»Í¬Ê±ºò£¬mapperÖĞÈçºÎÊ¹ÓÃ¡£
+*  @desc å‚æ•°ä¸åŒæ—¶å€™ï¼Œmapperä¸­å¦‚ä½•ä½¿ç”¨ã€‚
 * */
 @RunWith(JUnit4.class)
-@FixMethodOrder(value = MethodSorters.DEFAULT) //ÉùÃ÷Ë³ĞòÖ´ĞĞJunit
+@FixMethodOrder(value = MethodSorters.DEFAULT) //å£°æ˜é¡ºåºæ‰§è¡ŒJunit
 public class ParamTest extends BaseTest {
 
     /*
@@ -30,79 +30,95 @@ public class ParamTest extends BaseTest {
     }
 
     /**
-     * one Param - Ê¹ÓÃarg0¡¢arg1»òÕßparam1¡¢param2
+     * one Param - ä½¿ç”¨arg0ã€arg1æˆ–è€…param1ã€param2
      * */
     @Test
     public void test2() {
         GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
-        List<Girl> girl = girlDao.queryByNameAndPhone("ÁøÑÒ","18209876577");
+        List<Girl> girl = girlDao.queryByNameAndPhone("æŸ³å²©","18209876577");
         System.out.println(girl);
     }
 
     /**
-     * pojo Param -Ö±½ÓĞ´ÊôĞÔÃû
+     * pojo Param -ç›´æ¥å†™å±æ€§å
      * */
     @Test
     public void test3() {
         GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
         Girl param = new Girl();
         param.setId(1);
-        param.setName("ÁøÑÒ");
+        param.setName("æŸ³å²©");
         param.setPhone("18209876577");
         List<Girl> girl = girlDao.queryByPojo(param);
         System.out.println(girl);
     }
 
     /**
-     * map param - Ğ´¶ÔÓ¦µÄkey
+     * map param - å†™å¯¹åº”çš„key
      * */
     @Test
     public void test4() {
         GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("id",1);
-        map.put("name","ÁøÑÒ");
+        map.put("name","æŸ³å²©");
         List<Girl> girl = girlDao.queryByMap(map);
         System.out.println(girl);
     }
 
     /**
-     * list param - Ê¹ÓÃlist²éÑ¯
+     * list param - ä½¿ç”¨listæŸ¥è¯¢
      * */
     @Test
     public void test5() {
         GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
         List<String> list = new ArrayList<String>();
-        list.add("ÁøÑÒ");
+        list.add("æŸ³å²©");
         list.add("18209876577");
         List<Girl> girl = girlDao.queryByList(list);
         System.out.println(girl);
     }
 
     /**
-     * list param - Ê¹ÓÃSet²éÑ¯
+     * list param - ä½¿ç”¨SetæŸ¥è¯¢
      * */
     @Test
     public void test6() {
         GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
         Set<String> set = new HashSet<String>();
-        set.add("ÁøÑÒ");
-        set.add("²ÔÀÏÊ¦");
+        set.add("æŸ³å²©");
+        set.add("è‹è€å¸ˆ");
         set.add("Angelababy");
         List<Girl> girl = girlDao.queryBySet(set);
         System.out.println(girl);
     }
 
     /**
-     * array param - Ğ´¶ÔÓ¦µÄidex
+     * array param - å†™å¯¹åº”çš„idex
      * */
     @Test
     public void test7() {
         GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
         String[] arr = new String[2];
-        arr[0] = "ÁøÑÒ";
+        arr[0] = "æŸ³å²©";
         arr[1] = "18209876577";
         List<Girl> girl = girlDao.queryByArr(arr);
         System.out.println(girl);
+    }
+
+    /*
+      å¤šä¸ªpojo - @param
+
+     */
+    @Test
+    public void test8() {
+        GirlDao girlDao = sqlSession.getMapper(GirlDao.class);
+        Girl girl11 = new Girl();
+        Girl girl22 = new Girl();
+        girl11.setId(1);
+        girl22.setName("æŸ³å²©");
+
+        List<Girl> list = girlDao.queryByTwoGirl(girl11, girl22);
+        System.out.println(list);
     }
 }

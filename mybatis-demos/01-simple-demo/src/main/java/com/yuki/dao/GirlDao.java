@@ -1,6 +1,7 @@
 package com.yuki.dao;
 
 import com.yuki.entity.Girl;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -43,16 +44,17 @@ public interface GirlDao {
 
     // #{} and ${}
     //--------------------------
-    // nameÄ£ºı²éÑ¯
+    // nameæ¨¡ç³ŠæŸ¥è¯¢
     List<Girl> queryLikeName(String name);
 
-    // insert¡¢update¡¢delete
+    // insertã€updateã€delete
     //--------------------------
-    // insert - ·µ»ØÖ÷¼ü
+    // insert - è¿”å›ä¸»é”®
     int insertGirl(Girl girl);
     // update
     int updateGirl(Girl girl);
     // delete
     int deleteGirl(Girl girl);
 
+    List<Girl> queryByTwoGirl(@Param("girl1") Girl girl11,@Param("girl2") Girl girl22);
 }

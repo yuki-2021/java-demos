@@ -51,4 +51,11 @@
         name = #{array[0]}
        and phone = #{array[1]}
     </select>
+
+    <!-- 两个Pojo - @Param-->
+    <select id="queryByTwoGirl" resultType="Girl">
+        select * from beauty
+        where
+        id = #{girl1.id} and name = #{girl2.name}
+    </select>
 </mapper>
