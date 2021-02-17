@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuki.dao.GirlDao">
+
+    <!-- insert
+                userGeneratedKeys - 使用JDBC驱动获取插入主键
+                 keyColumn - 获取那一列
+                 keyProperty - 赋值给那个属性
+                  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    -->
+    <insert id="insertGirl" parameterType="Girl">
+        <!-- useGeneratedKeys="true" keyColumn="id" keyProperty="id"> -->
+        <selectKey resultType="int" order="AFTER" keyProperty="id">
+            select last_insert_id()
+        </selectKey>
+        insert into beauty
+        value
+        (#{id},#{name},#{sex},#{birth},#{phone},#{photo},#{boyfriendId})
+    </insert>
+
+    <!-- update -->
+    <update id="updateGirl" parameterType="Girl">
+        update beauty
+        set
+        boyfriend_id = #{boyfriendId},phone = #{phone}
+        where
+        id = #{id}
+    </update>
+
+    <delete id="deleteGirl" parameterType="Girl">
+        delete from beauty
+        where
+        id = #{id}
+    </delete>
+
+</mapper>
