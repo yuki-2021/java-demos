@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    
+    <!-- 开启组件扫描 -->
+    <context:component-scan base-package="com.yuki.demo4">
+        <!-- 排除@RunnWith - 没什么意义，仅仅测试用法-->
+        <context:exclude-filter type="annotation" expression="org.junit.runner.RunWith"/>
+        <!-- 排除具体的类-->
+        <context:exclude-filter type="assignable" expression="com.yuki.demo4.ScanDemo"/>
+        <!-- aspectj表达式 - 排除很多类 -->
+        <context:exclude-filter type="aspectj" expression="com.yuki..*.inner.*"/>
+    </context:component-scan>
+    
+</beans>
