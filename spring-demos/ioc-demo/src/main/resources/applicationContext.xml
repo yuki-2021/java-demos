@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- id、name、class - 配置基础Bean-->
+    <bean id="userServiceId" name="userServiceName" class="com.yuki.demo1.service.UserServiceImpl" />
+
+    <!-- factoryMethod - 使用工厂方法创建Bean-->
+    <bean id="userServiceFactoryMethod" class="com.yuki.demo1.FactoryMethod" factory-method="fac" />
+
+    <!-- factoryBean - 使用简单工厂创建Bean -->
+    <bean id="simpleFac" class="com.yuki.demo1.SimpleFactory" />
+    <bean id="userServiceSimpleFactory" factory-bean="simpleFac" factory-method="fac" />
+
+
+    <!-- abstract、parent - Bean模板、使用Bean模板 -->
+    <bean id="userServiceAbstract" class="com.yuki.demo1.service.UserServiceImpl" abstract="true"/>
+    <bean id="userServiceExtend" class="com.yuki.demo1.service.UserServiceImpl" parent="userServiceAbstract" />
+
+
+
+    <!-- depends-on - Bean实例化的顺序 -->
+    <bean id="shopDao" class="com.yuki.demo1.service.ShopDao" />
+    <bean id="productDao" class="com.yuki.demo1.service.ProductDao" depends-on="shopDao"/>
+
+</beans>
