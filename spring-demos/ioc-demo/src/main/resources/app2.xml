@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 属性注入 - ref、value、内部bean-->
+    <bean id="car1" class="com.yuki.demo2.entity.Car">
+        <property name="color" value="red" />
+        <property name="brand" value="byd" />
+     </bean>
+    <bean id="emp1" class="com.yuki.demo2.entity.Employee">
+        <property name="id" value="1" />
+        <property name="name" value="tom" />
+        <property name="car" ref="car1" />
+        <property name="dept">
+            <bean class="com.yuki.demo2.entity.Department">
+                <property name="name" value="开发部" />
+                <property name="address" value="xx大厦-B201" />
+            </bean>
+        </property>
+    </bean>
+
+
+
+    <!-- constructor 注入 - type、name属性 -->
+    <bean name="cat1" class="com.yuki.demo2.entity.Cat">
+        <constructor-arg value="cat1" />
+    </bean>
+    <bean id="cat2" class="com.yuki.demo2.entity.Cat" >
+        <constructor-arg value="1" type="int"/>
+        <constructor-arg value="2" type="java.lang.String"/>
+    </bean>
+    <bean id="cat3" class="com.yuki.demo2.entity.Cat" >
+        <constructor-arg name="name" value="cat3"/>
+        <constructor-arg name="color" value="red" />
+        <constructor-arg name="age" value="1" />
+    </bean>
+
+
+    <!-- 注入null -->
+    <bean name="cat4" class="com.yuki.demo2.entity.Cat">
+        <constructor-arg name="name" value="cat4" />
+        <constructor-arg name="age" value="4" />
+        <constructor-arg name="color">
+            <null />
+        </constructor-arg>
+    </bean>
+
+
+    <!-- 注入 list/set/array/map/props -->
+    <bean id="collectBean" class="com.yuki.demo2.entity.CollectBean">
+        <property name="list">
+            <list>
+                <value>Java</value>
+                <value>C#</value>
+                <value>C++</value>
+                <value>Spring</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>English</value>
+                <value>Chinese</value>
+                <value>Jepanese</value>
+            </set>
+        </property>
+        <property name="arr">
+            <array>
+                <value>sing</value>
+                <value>eat</value>
+                <value>sleep</value>
+            </array>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="math" value="99" />
+                <entry key="chinese" value="99" />
+                <entry key="english" value="99" />
+            </map>
+        </property>
+        <property name="props">
+            <props>
+                <prop key="cat">100</prop>
+                <prop key="dog">200</prop>
+                <prop key="rabbit">300</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- scope - bean的作用域 -->
+    <bean id="catScope" class="com.yuki.demo2.entity.Cat" scope="prototype" />
+</beans>
