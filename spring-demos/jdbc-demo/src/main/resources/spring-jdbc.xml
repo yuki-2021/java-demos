@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- c3p0 - comboPooledDataSource -->
+    <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/laifu?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="user" value="root"/>
+        <property name="password" value="123456"/>
+        <!-- poolSize-->
+        <property name="maxPoolSize" value="10"/>
+        <property name="minPoolSize" value="5"/>
+        <property name="initialPoolSize" value="5"/>
+        <!-- statement大小 -->
+        <property name="maxStatements" value="50"/>
+        <property name="maxStatementsPerConnection" value="5"/>
+        <!-- idle-->
+        <property name="maxIdleTime" value="60"/>
+        <property name="idleConnectionTestPeriod" value="60"/>
+        <!-- acquire-->
+        <property name="checkoutTimeout" value="30000"/>
+        <property name="acquireRetryAttempts" value="3"/>
+        <property name="acquireRetryDelay" value="1000"/>
+        <!-- c3p0 检测能否连接成功 -->
+        <property name="preferredTestQuery" value="select 1" />
+    </bean>
+
+    <!-- jdbcTemplate -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="datasource" />
+    </bean>
+
+
+    <!-- namedJdbcTemplate - 命令Template -->
+    <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg name="dataSource" ref="datasource" />
+    </bean>
+
+
+    <!-- service  -->
+    <context:component-scan base-package="com.yuki.jdbc" />
+</beans>
