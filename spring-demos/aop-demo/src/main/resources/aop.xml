@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- beans -->
+    <context:component-scan base-package="com.yuki.aop" />
+
+    <!-- defaultAdvisor -->
+    <bean name="beforeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="advice" ref="catBefore" />
+        <property name="pointcut">
+            <bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+                <property name="classFilter" value="TRUE" />
+                <property name="pattern" value=".*eat.*" />
+            </bean>
+        </property>
+    </bean>
+
+
+    <!-- aop - 手动代理 -->
+    <!--
+        target - 目标类
+        interceptorNames - Advice通知 或者 Advisor
+        proxyInterfaces - 目标接口
+    -->
+    <bean id="cat" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!-- 采用cglib代理、jdk代理-->
+        <property name="proxyTargetClass" value="false" />
+        <property name="optimize" value="false" />
+        <!-- -->
+        <property name="target" ref="catTarget" />
+        <property name="interceptorNames" value="beforeAdvisor" />
+        <property name="proxyInterfaces" value="com.yuki.aop.CatFace" />
+    </bean>
+</beans>

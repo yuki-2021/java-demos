@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- beans -->
+    <context:component-scan base-package="com.yuki.aop" />
+
+    <!-- defaultAdvisor -->
+    <bean name="beforeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="advice" ref="catBefore" />
+        <property name="pointcut">
+            <bean class="org.springframework.aop.support.NameMatchMethodPointcut">
+                <property name="mappedName" value="eat" />
+                <property name="classFilter">
+                    <bean class="org.springframework.aop.aspectj.TypePatternClassFilter">
+                        <property name="typePattern" value="com.yuki.aop..Cat" />
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+
+    <!-- BeanNameAutoProxyCreator - 自动代理 -->
+    <!---
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames" value="catTarget" />
+        <property name="interceptorNames" value="beforeAdvisor" />
+    </bean>
+    -->
+
+    <!-- DefaultAutoProxyCreator - 自动代理 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+</beans>

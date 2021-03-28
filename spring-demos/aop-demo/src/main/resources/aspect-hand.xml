@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 组件扫描 -->
+    <context:component-scan base-package="com.yuki.aop" />
+
+    <!-- beforeAdvisor -->
+    <bean id="beforeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="pointcut">
+            <bean class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+                <property name="expression" value="execution(* com.yuki.aop..Cat.*(..))" />
+            </bean>
+        </property>
+        <property name="advice" ref="catBefore" />
+    </bean>
+
+    <!-- aspectj-手动织入 -->
+    <bean name="cat" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!-- 不使用cglib代理 -->
+        <property name="proxyTargetClass" value="true" />
+        <property name="optimize" value="true" />
+        <!-- 代理 -->
+        <property name="target" ref="catTarget" />
+        <property name="proxyInterfaces" value="com.yuki.aop.CatFace" />
+        <property name="interceptorNames" value="beforeAdvisor" />
+    </bean>
+
+</beans>
