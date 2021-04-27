@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <!-- properties - 通用属性 -->
+    <property name="log.pattern" value="%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %5level %magenta(${PID}) --- %magenta([%15.15t]) %cyan(%-40.40logger{39}) :  %msg%n" />
+    <property name="log.path" value="F:/logs/" />
+    <property name="log.maxHistory" value="30" />
+    <property name="log.level" value="debug" />
+
+    <!-- appender - 输出 -->
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${log.pattern}</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <file>${log.path}/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/debug/debug-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <file>${log.path}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/info/info-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <file>${log.path}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/error/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>${log.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- logger - 日志记录器 -->
+    <logger name="root" level="info">
+        <appender-ref ref="consoleAppender" />
+    </logger>
+    <logger name="com.yuki" level="${log.level}" additivity="true">
+        <appender-ref ref="debugAppender" />
+        <appender-ref ref="infoAppender" />
+        <appender-ref ref="errorAppender" />
+    </logger>
+</configuration>
