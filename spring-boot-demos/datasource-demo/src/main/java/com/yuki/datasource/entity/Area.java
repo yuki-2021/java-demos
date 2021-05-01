@@ -2,7 +2,6 @@ package com.yuki.datasource.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Persistent;
-import org.springframework.data.relational.core.mapping.Table;
 
 //import javax.persistence.*;
 import javax.persistence.*;

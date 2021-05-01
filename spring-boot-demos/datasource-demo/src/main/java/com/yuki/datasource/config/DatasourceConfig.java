@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DatasourceConfig {
 
-    // Mark 在只引入mysql驱动情况下 - 测试DatasourceBuilder规则 - 显示配置 > 默认配置 > 找不到就报错
+    // Mark 3. 手动指定DataSource - 使用了DatasourceBuilder
     /*
     * DatasourceBuilder - 构造者模式
     *   - create() - 创建builder
