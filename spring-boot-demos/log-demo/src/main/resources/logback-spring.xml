@@ -3,9 +3,15 @@
 
     <!-- properties - 通用属性 -->
     <property name="log.pattern" value="%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %5level %magenta(${PID}) --- %magenta([%15.15t]) %cyan(%-40.40logger{39}) :  %msg%n" />
-    <property name="log.path" value="F:/logs/" />
     <property name="log.maxHistory" value="30" />
-    <property name="log.level" value="debug" />
+    <property name="log.level" value="info" />
+    <!-- spring-profile - 设置文件路径 -->
+    <springProfile name="dev">
+        <springProperty name="log.path" source="log.path" defaultValue="F:/logs/dev/" />
+    </springProfile>
+    <springProfile name="prod">
+        <springProperty name="log.path" source="log.path" defaultValue="F:/logs/prod/" />
+    </springProfile>
 
     <!-- appender - 输出 -->
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
