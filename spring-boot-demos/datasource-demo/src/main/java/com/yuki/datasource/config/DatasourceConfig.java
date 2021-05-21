@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DatasourceConfig {
 
-    // Mark 3. 手动指定DataSource - 使用了DatasourceBuilder
+    // 30.1 配置Datasource
     /*
     * DatasourceBuilder - 构造者模式
     *   - create() - 创建builder

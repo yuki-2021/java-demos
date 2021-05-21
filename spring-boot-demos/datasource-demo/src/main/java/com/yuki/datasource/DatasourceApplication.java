@@ -19,12 +19,12 @@ public class DatasourceApplication {
         ConfigurableApplicationContext context =
                 SpringApplication.run(DatasourceApplication.class, args);
 
-        // MARK  1. 测试默认的Datasource类型
+        // 30.2 测试Dtasource类型
         System.out.println("==========================");
         DataSource datasource = context.getBean(DataSource.class);
         System.out.println(datasource);
 
-        // 2. 测试JdbcTemplate是否存在
+        // 30.2 测试是否配置了JdbcTemplate
         System.out.println("==========================");
         JdbcTemplate jdbcTemplate = context.getBean(JdbcTemplate.class);
         System.out.println(jdbcTemplate);

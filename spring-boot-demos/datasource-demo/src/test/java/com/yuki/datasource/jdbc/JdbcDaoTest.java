@@ -1,8 +1,9 @@
 package com.yuki.datasource.jdbc;
 
-import com.yuki.datasource.entity.Area;
+import com.yuki.datasource.jpa.Area;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.jdbc.AutoConfigureDataJdbc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -33,7 +34,6 @@ public class JdbcDaoTest {
                 new BeanPropertySqlParameterSource(param), BeanPropertyRowMapper.newInstance(Area.class));
         // 3. 输出
         System.out.println(res);
-
     }
 
 

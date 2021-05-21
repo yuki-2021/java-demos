@@ -1,11 +1,11 @@
-package com.yuki.datasource.entity;
+package com.yuki.datasource.jpa;
 
 import lombok.Data;
-import org.springframework.data.annotation.Persistent;
 
-//import javax.persistence.*;
 import javax.persistence.*;
 import java.util.Date;
+
+
 
 @Data
 @Entity(name = "tb_area")
