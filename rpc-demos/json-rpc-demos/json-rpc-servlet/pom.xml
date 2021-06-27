@@ -24,7 +24,7 @@
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- jsonrpc4j -->
+        <!-- json-rpc4j -->
         <dependency>
             <groupId>com.github.briandilley.jsonrpc4j</groupId>
             <artifactId>jsonrpc4j</artifactId>
@@ -35,7 +35,7 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.10.2</version>
         </dependency>
-        <!-- sevlet-api -->
+        <!-- servlet-api -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

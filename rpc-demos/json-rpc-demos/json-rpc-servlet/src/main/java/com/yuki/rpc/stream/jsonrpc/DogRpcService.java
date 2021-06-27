@@ -41,7 +41,7 @@ public class DogRpcService extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // 3. 交给jsonRpcServer来解析JsonRpc报文，然后调用prxy处理，最后回写JsonRpc报文
         jsonRpcServer.handle(req,resp);
     }

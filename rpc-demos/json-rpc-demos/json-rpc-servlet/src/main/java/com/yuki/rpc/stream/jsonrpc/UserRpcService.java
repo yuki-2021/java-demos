@@ -1,10 +1,7 @@
 package com.yuki.rpc.stream.jsonrpc;
 
 import com.googlecode.jsonrpc4j.JsonRpcServer;
-import com.yuki.rpc.api.UserService;
-import com.yuki.rpc.stream.service.UserServiceImpl;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +17,11 @@ public class UserRpcService extends HttpServlet {
     /*
     * JsonRpcServer
     * */
-    private JsonRpcServer jsonRpcServer = new JsonRpcServer(new UserServiceImpl(), UserService.class);;
+    private JsonRpcServer jsonRpcServer;
 
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         jsonRpcServer.handle(req,resp);
     }
 }
