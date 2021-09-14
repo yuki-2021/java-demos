@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!--  引入vue和Vue-router -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        App
+        <!-- router-link是渲染标签 -->
+        <router-link to="/">首页</router-link> || 
+        <router-link to="/home">Home页面</router-link>
+        <hr>
+        <!--渲染地址  -->
+        <router-view></router-view> 
+    </div>
+</body>
+
+<script>
+    /**
+     * =========== 重定向 ========== 
+     * 
+     * 嵌套路由，当路径匹配时，会渲染path，同时，在子组件的<router-view>中，渲染子组件
+     * - 在routes中，使用children
+     * - 在子组件中，使用<router-view>
+     *
+    */
+     //==================== 定义Comp
+     const Home = {
+        template: `<div> this is home page !!!  </div>`
+    }
+   
+    //==================== 定义VueRouter
+    Vue.use(VueRouter);
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/home',
+                component: Home
+            },
+            {
+                path: '/',
+                redirect: '/home'
+
+            }
+        ]
+    });
+
+    //==================== Vue
+    
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            Home
+        },
+        router,
+        methods: {
+            toPost() {
+                console.log('to Post');
+            }
+        }
+    });
+    
+
+</script>
+</html>

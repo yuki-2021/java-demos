@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!--  引入vue和Vue-router -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        App
+        <!-- router-link是渲染标签 -->
+        <router-link to="/foo">foo</router-link>
+        <router-link to="/bar">bar</router-link>
+
+        <hr>
+        <!--渲染地址  -->
+        <router-view></router-view> 
+    </div>
+</body>
+
+<script>
+    /**
+     * vue-router - 用于把url路由(转发，类似网络中的路由，就是把数据包从源ip送到目的ip)到component   
+     *
+     *
+    */
+     //==================== 定义Comp
+    const Foo = {
+        template: `<div> foo !!!</div>`
+    }
+    const Bar = Vue.component("bar", {
+        template: `<div> bar !!!</div>`
+    })
+    //==================== 定义VueRouter
+    Vue.use(VueRouter);
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/foo',
+                component: Foo
+            },
+            {
+                path: '/bar',
+                component: Bar
+            }
+        ]
+    });
+
+    //==================== Vue
+    
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            Foo
+        },
+        router
+    });
+    
+
+</script>
+</html>

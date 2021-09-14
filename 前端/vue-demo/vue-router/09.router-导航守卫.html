@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-router - 导航守卫</title>
+    
+    <!--  引入vue和Vue-router -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        App
+        <!-- router-link是渲染标签 -->
+        <router-link to="/">首页</router-link> || 
+        <router-link to="/home">Home页面</router-link> || 
+        <button @click="toHome">Home页面</button> || 
+        <hr>
+        <!--渲染地址  -->
+        <router-view></router-view> 
+    </div>
+</body>
+
+<script>
+    /**
+     * =========== 钩子函数 ========== 
+     * 
+     * 钩子函数有3种
+     * 
+     * - 全局钩子
+     * - 组件钩子
+     * - 路由钩子
+     * 
+     * 
+     * 全局钩子
+     * - router.beforeEach(to,from.next) - 需要手动调next()
+     * - router.afterEach(to,from)
+     *
+     * 组件钩子
+     * - beforeRouteEnter() - 在created之前调用，不能访问this, 可以用next( vm => {xx})的格式
+     * - beforeRouteLeave() 
+     *
+     * route钩子
+     * - beforeEnter()
+     *
+     *
+    */
+     //==================== 定义Comp
+     const Home = {
+        template: `<div> this is home page !!!  <br /> 
+                     </div>`,
+        // beforeRouteEnter()执行在created()前
+        // 因此，beforeRouteEnter()不能访问this
+        // 但是，你可以在next()中接受一个`回调函数`，回调函数格式是`vm => xxxx`
+        beforeRouteEnter(to, from, next) {
+            console.log("---------------- beforeRouteEnter()");
+            // 不能访问this，可以接受回调
+            next(vm => {
+                console.log(this);
+            });
+        },
+        beforeRouteLeave(to,from,next) {
+            console.log("---------------- beforeRouteLeave()");
+            next();
+        },
+        created() {
+            console.log("creted");
+        },
+        mounted() {
+            console.log("mounted");
+        }
+    }
+   
+    //==================== 定义VueRouter
+    Vue.use(VueRouter);
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/home',
+                component: Home,
+                beforeEnter(to,from,next) {
+                    console.log("---------------- beforeEnter()");
+                    console.log(to,from);
+                    next();
+                }
+            }
+        ]
+    });
+    // beforeEach()
+    router.beforeEach((to,from,next) => {
+        console.log("---------------- beforeEach()");
+        console.log(to,from);
+        next();
+    });
+    // afterEach
+    router.afterEach((to,from) => {
+        console.log("---------------- afterEach()");
+        console.log(to,from);
+    })
+    //==================== Vue
+    
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            Home
+        },
+        router,
+        methods: {
+            toHome() {
+                this.$router.push({path:'/home'})
+            }
+        }
+    });
+    
+
+</script>
+</html>

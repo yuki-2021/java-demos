@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-router - 导航守卫</title>
+    
+    <!--  引入vue和Vue-router -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        App
+        <!-- router-link是渲染标签 -->
+        <router-link to="/">首页</router-link> || 
+        <router-link to="/user/post">Home页面</router-link> || 
+        <router-link to="/user/tag">Home页面</router-link> || 
+        <hr>
+        <!--渲染地址  -->
+        <router-view></router-view> 
+    </div>
+</body>
+
+<script>
+    /**
+     * =========== 钩子函数 ========== 
+     * 
+     * route钩子 - 在匹配children()时候，route中的beforeEnter()是否会执行？
+     * 
+     * 会   🎉
+     * 不会
+     *
+     *
+    */
+     //==================== 定义Comp
+     const User = {
+        template: `<div> this is User Page !!!  <br /> <router-view></router-view> </div>`
+    }
+    const Post = {
+        template: `<div> Post Page !!!  </div>`
+    }
+    const Tag = {
+        template: `<div> Tag Page !!!  </div>`
+    }
+   
+    //==================== 定义VueRouter
+    Vue.use(VueRouter);
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/user',
+                component: User,
+                children: [
+                    {
+                        path: 'post',
+                        component: Post
+                    },
+                    {
+                        path: 'tag',
+                        component: Tag
+                    }
+                ],
+                beforeEnter(to,from,next) {
+                    console.log("------------ beforeEnter() ");
+                    console.log(to, from);
+                    next();
+                }
+            }
+        ]
+    });
+    //==================== Vue
+    
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            User, Post, Tag
+        },
+        router,
+    });
+    
+
+</script>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!--  引入vue和Vue-router -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.2/dist/vue-router.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        App
+        <!-- router-link是渲染标签 -->
+        <router-link to="/user/1/post/2">Post1</router-link>
+        <button @click='toPost'>Post2</button>
+        <hr>
+        <!--渲染地址  -->
+        <router-view></router-view> 
+    </div>
+</body>
+
+<script>
+    /**
+     * vue-router - 用于把url路由(转发，类似网络中的路由，就是把数据包从源ip送到目的ip)到component   
+     * 
+     * 嵌套路由，当路径匹配时，会渲染path，同时，在子组件的<router-view>中，渲染子组件
+     * - 在routes中，使用children
+     * - 在子组件中，使用<router-view>
+     *
+    */
+     //==================== 定义Comp
+     const User = {
+        template: `<div> {{ $route.params.id}}  --  <router-view></router-view></div>`
+    }
+    const Post = {
+        template: `<div> {{ $route.params.postId}} </div>`
+    }
+   
+    //==================== 定义VueRouter
+    Vue.use(VueRouter);
+    var router = new VueRouter({
+        routes: [
+            {
+                path: '/user/:id',
+                component: User,
+                children: [
+                    {
+                        path: 'post/:postId',
+                        component: Post
+                    }
+                ]
+            }
+        ]
+    });
+
+    //==================== Vue
+    
+    var vm = new Vue({
+        el: '#app',
+        components: {
+            User,Post
+        },
+        router,
+        methods: {
+            toPost() {
+                console.log('to Post');
+            }
+        }
+    });
+    
+
+</script>
+</html>
