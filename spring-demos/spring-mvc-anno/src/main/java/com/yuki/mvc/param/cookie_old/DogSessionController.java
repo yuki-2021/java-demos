@@ -1,4 +1,4 @@
-package com.yuki.mvc.param.cookie;
+package com.yuki.mvc.param.cookie_old;
 
 
 import com.yuki.mvc.entity.Dog;
@@ -6,9 +6,8 @@ import com.yuki.mvc.entity.User;
 import org.springframework.web.bind.annotation.*;
 
 /**
- *
+ * @SessionAttributes
  * */
-@RestController
 @RequestMapping("/dog-session")
 @SessionAttributes(value = {"user","dog"})
 public class DogSessionController {

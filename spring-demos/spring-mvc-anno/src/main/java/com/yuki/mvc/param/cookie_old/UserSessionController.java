@@ -1,4 +1,4 @@
-package com.yuki.mvc.param.cookie;
+package com.yuki.mvc.param.cookie_old;
 
 
 import com.yuki.mvc.entity.Dog;
@@ -45,7 +45,6 @@ import java.util.Enumeration;
 *
 *
 * */
-@RestController
 @RequestMapping("/user-session")
 @SessionAttributes(value = {"user"})
 public class UserSessionController {

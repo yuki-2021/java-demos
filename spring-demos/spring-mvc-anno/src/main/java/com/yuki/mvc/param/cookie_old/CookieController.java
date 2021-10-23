@@ -1,4 +1,4 @@
-package com.yuki.mvc.param.cookie;
+package com.yuki.mvc.param.cookie_old;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -7,8 +7,6 @@ import javax.servlet.http.HttpSession;
 /**
  * 测试@CookieValue
  * */
-@RestController
-@RequestMapping("/cookie")
 @Slf4j
 public class CookieController {
 
