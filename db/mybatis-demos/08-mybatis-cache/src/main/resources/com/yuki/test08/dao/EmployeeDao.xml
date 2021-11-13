@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuki.test08.dao.EmployeeDao">
+
+
+
+    <!-- 一级缓存 -->
+    <select id="getOneLevelCacheById" resultType="Employee" flushCache="true">
+        select * from employee where id = #{id}
+    </select>
+    <select id="getOneLevelCacheByDeptId" resultType="Employee">
+        select * from employee where dept_id = #{deptId}
+    </select>
+
+
+    <!-- 二级缓存 -->
+    <cache
+        flushInterval="50000"
+        eviction="FIFO"
+        size="1024"
+        readOnly="true"/>
+
+    <select id="getTwoCacheLevelById" resultType="Employee" >
+        select * from employee where id = #{id}
+    </select>
+    <insert id="insertFlush">
+        insert into employee values(null, #{lastName},#{gender},#{email},2)
+    </insert>
+
+
+    <update id="updateEmployee" parameterType="employee" flushCache="false">
+        update employee
+        <set>
+            gender = '女'
+        </set>
+        where
+            id = 12
+    </update>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--指定 数据源位置-->
+    <properties resource="jdbc.properties"></properties>
+
+
+    <!-- 定义Settings-->
+    <settings>
+        <!-- 开启驼峰映射规则-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 使用JDBCType.NULLL -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <!-- 使用LOG4j -->
+        <setting name="logImpl" value="LOG4J"/>
+        
+        <!-- autoMappingBehavior - 自动映射 -->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!-- lazyLoading - 懒加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false" />
+        
+        <!-- 二级缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <!-- 开启别名 -->
+    <typeAliases>
+        <package name="com.yuki.test08.domain" />
+    </typeAliases>
+
+
+    <!-- 配置Enbiroments-->
+    <environments default="dev">
+        <environment id="dev">
+            <!-- 事务管理器 使用JDBC来做事务管理 在opensession()的时候开启事务 -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- datasource-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- mappers-->
+    <mappers>
+        <package name="com.yuki.test08.dao"/>
+    </mappers>
+
+</configuration>
