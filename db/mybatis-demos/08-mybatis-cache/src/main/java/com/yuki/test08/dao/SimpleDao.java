@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.CacheNamespace;
 
 import java.util.List;
 
-@CacheNamespace
 public interface SimpleDao {
 
 

@@ -1,6 +1,8 @@
-package com.yuki.test08.dao;
+package com.yuki.test08;
 
 import com.yuki.test08.domain.Employee;
+import com.yuki.test08.dao.EmployeeDao;
+import com.yuki.test08.dao.SimpleDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

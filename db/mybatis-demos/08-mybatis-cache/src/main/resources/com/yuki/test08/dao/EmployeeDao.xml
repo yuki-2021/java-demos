@@ -28,14 +28,4 @@
     <insert id="insertFlush">
         insert into employee values(null, #{lastName},#{gender},#{email},2)
     </insert>
-
-
-    <update id="updateEmployee" parameterType="employee" flushCache="false">
-        update employee
-        <set>
-            gender = '女'
-        </set>
-        where
-            id = 12
-    </update>
 </mapper>
