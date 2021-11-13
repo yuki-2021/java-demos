@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuki.test081.dao.EmployeeDao">
+
+
+
+    <!-- 查询 -->
+    <select id="getEmpById" resultType="Employee" >
+        select * from employee where id = #{id}
+    </select>
+    <select id="getEmpByDeptId" resultType="Employee">
+        select * from employee where dept_id = #{deptId}
+    </select>
+
+
+    <!-- 二级缓存  - 继承Ehcache -->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache" />
+
+    <insert id="insertFlush">
+        insert into employee values(null, #{lastName},#{gender},#{email},2)
+    </insert>
+
+</mapper>

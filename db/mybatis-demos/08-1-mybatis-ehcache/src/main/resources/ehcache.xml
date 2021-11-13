@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+        updateCheck="false">
+
+    <!-- 达到内存大小 -> 写入磁盘-->
+    <diskStore path="F:/ehcache"/>
+
+
+    <!--
+        diskPersistent       -  是否在vm重启时候，持久化数据
+
+        maxElementsInMemory  - 内存中支持的 最大元素个数
+        overflowToDisk       - 内存不足，是否使用磁盘存储
+        maxElementsOnDisk    - 磁盘中的最大缓存个数
+
+        eternal              - 缓存的对象是否是永久的，如果是永久的，会永不过期
+        timeToIdleSeconds    - 超过idle，会过期 单位是s
+        timeToLiveSeconds    - 元素的最大生存时间，超过livetime，会过期
+        memoryStoreEvictionPolicy - 达到size，使用evication剔除过期内容
+
+        diskSpoolBufferSizeMB - 磁盘缓冲区的大小，达到缓冲区，会push到磁盘
+        diskExpiryThreadIntervalSeconds - 磁盘失效线程运行时间间隔，默认是120秒。
+
+    -->
+    <cache name="com.yuki.test081.dao.EmployeeDao"
+            diskPersistent = "false"
+
+            maxElementsInMemory = "1"
+            overflowToDisk = "true"
+            maxElementsOnDisk="1"
+
+            eternal = "false"
+            memoryStoreEvictionPolicy = "FIFO"
+            timeToIdleSeconds = "1800"
+            timeToLiveSeconds = "1800"
+
+
+            diskSpoolBufferSizeMB = "200"
+            diskExpiryThreadIntervalSeconds = "10">
+<!--        <BootstrapCacheLoaderFactory class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory" properties="bootstrapAsynchronously=true" />-->
+    </cache>
+
+    <defaultCache
+            diskPersistent = "false"
+
+            maxElementsInMemory = "100"
+            overflowToDisk = "true"
+            maxElementsOnDisk="1"
+
+            eternal = "false"
+            memoryStoreEvictionPolicy = "FIFO"
+            timeToIdleSeconds = "1800"
+            timeToLiveSeconds = "1800"
+
+
+            diskSpoolBufferSizeMB = "200"
+            diskExpiryThreadIntervalSeconds = "10">
+    </defaultCache>
+</ehcache>
