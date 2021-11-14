@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--指定 数据源位置-->
+    <properties resource="jdbc.properties"></properties>
+    <!--settings设置项目-->
+    <settings>
+        <!--开启 下划线映射驼峰 规则-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 会把 null 转换为 JdbcType.Null -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <!-- 指定日志类型 -->
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <!--typeAlias 为 Java类型起 别名-->
+    <typeAliases>
+        <package name="com.yuki.test06.domain" />
+    </typeAliases>
+
+    <!-- 配置环境变量-->
+   <environments default="dev">
+       <environment id="dev">
+           <!-- 事务管理器 用于 决定 事务作用域 和  事务控制方式-->
+           <transactionManager type="JDBC"></transactionManager>
+           <!-- datasouce 用于 获取数据库连接(Connection)实例-->
+           <dataSource type="POOLED">
+               <property name="driver" value="${jdbc.driver}"/>
+               <property name="url" value="${jdbc.url}"/>
+               <property name="username" value="${jdbc.username}"/>
+               <property name="password" value="${jdbc.password}"/>
+           </dataSource>
+       </environment>
+   </environments>
+
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+    </databaseIdProvider>
+
+    <!-- 指定映射文件位置-->
+    <mappers>
+        <mapper resource="mapper/DepartmentMapper.xml" />
+        <mapper resource="mapper/EmployeeMapper.xml" />
+    </mappers>
+</configuration>

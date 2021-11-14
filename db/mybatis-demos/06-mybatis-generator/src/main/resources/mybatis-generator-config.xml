@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- Properties - 定义通用变量 -->
+    <properties resource="mybatis-generator.properties" />
+
+
+    <!--
+        context - 配置db信息、如何生成domain、dao、mapper
+
+        id - id标志
+        defaultModelType - 建议配置成`flat(每个表生成一个实体类)`
+        targetRuntime - 支持``Mybatis3（默认值）`和`Mybatis3Simple(不会生成Example对象)`
+    -->
+    <context id="yukiTest" defaultModelType="flat" targetRuntime="MyBatis3">
+
+        <!-- Property - 定义Java文件编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!-- commentGenerator - 生成注释信息 -->
+        <commentGenerator>
+            <!-- 阻止生成注释 - 默认false -->
+            <property name="suppressAllComments" value="true"/>
+            <!-- 阻止生成的注释有时时间戳 - 默认false-->
+            <property name="suppressDate" value="true"/>
+            <!-- 注释是否添加表的comment信息 - 默认false-->
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!-- jdbcConnection - 数据库连接信息-->
+        <jdbcConnection
+                driverClass="${jdbc.driver}"
+                connectionURL="${jdbc.url}"
+                userId="${jdbc.username}"
+                password="${jdbc.password}" />
+
+       <!--  javaTypeResolver - 定义数据库类型 和 Java类型的关系-->
+        <javaTypeResolver >
+            <!-- 强制把DECIMAL转换为BigDecimals - 默认false-->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- javaModelGenerator - 如何生成Domain -->
+        <javaModelGenerator targetPackage="${domainPackage}" targetProject="${sourceDir}">
+            <!-- 是否根据 数据库特性生成表 -->
+            <property name="enableSubPackages" value="true" />
+            <!-- 对get方法调用trim-->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- sqlMapGenerator - 生成mapper -->
+        <sqlMapGenerator targetPackage="${mapperPackage}"  targetProject="${sourceDir}">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- javaClientGenerator - 生成dao
+            type - 支持`ANNOTATEDMAPPER`、`XMLMAPPER`、`MIXEDMAPPER(@SqlProvider会被xml替代)`
+         -->
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="${daoPackage}"  targetProject="${sourceDir}">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+
+        <!-- table - 包括那些表
+             tableName - %表示所有表
+             enableXXX - 表示生成那些语句
+             generattedKey - 表示在insert时候，把自增主键设置到那个属性，sqlStatement设置`数据库类型(决定是selectKey还是useGenerated)`
+         -->
+        <table tableName="%"
+               enableSelectByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true"
+               enableInsert="true"
+               enableDeleteByPrimaryKey="true"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" />
+        </table>
+    </context>
+</generatorConfiguration>
